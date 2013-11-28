@@ -1,0 +1,23 @@
+<div ng-controller="validationCtrl">
+
+    <p>Angular offers built-in form validation, and we can add validations to that system.</p>
+
+    <form name="sampleForm" id="sampleForm">
+        <p>According to our custom validation, the number below needs to be between 1 and 10.</p>
+
+        <p>If you change it to something out of that range, the validation will fail, and the submit button will be
+           disabled (even when Submit is enabled, it doesn't do anything in this example).</p>
+
+        <p>
+            <input name="rangeInput" range-validator min-value=1 max-value=10 type="text" value="8" ng-model="exampleNumber">
+
+            <!-- Error below will only display if input field has errors -->
+            <span style="color: red;" ng-show="sampleForm.rangeInput.$error.rangeValidator">Input is not between 1 and 10</span>
+
+            <!-- Submit will only work if the expression given to ng-disabled evaluates to false -->
+            <br/><button type="submit" ng-disabled="sampleForm.$invalid">Submit</button>
+        </p>
+        <p>Form errors can be expressed any way you like -- the HTML and styles are completely up to you.</p>
+
+    </form>
+</div>

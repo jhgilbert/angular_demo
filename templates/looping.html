@@ -1,0 +1,53 @@
+<div ng-controller="loopingCtrl">
+    <p>Angular can loop through data. Consider the array of students and their grades below:</p>
+    <!-- {{ }} allows interpolation of a variable into HTML -->
+    <p><b>{{exampleArray}}</b></p>
+
+    <p>Angular can loop through that data. It's outside the scope of this demo, but Angular could also
+    do something with an item in the array when the user clicks on its row in the table -- run a custom function
+    that takes the item as a parameter, mark the item as the "selected" item, and so on.</p>
+
+    <p>This makes Angular powerful when it comes to tables and other structured sets of data.</p>
+
+    <!-- tabled data -->
+    <hr />
+    <p>We can put the data in a table ...</p>
+    <table>
+        <tr>
+            <td>NAME</td>
+            <td>GRADE</td>
+        </tr>
+        <!-- ng-repeat will iterate across the array.
+        The HTML element will be repeated for each item, along with any nested HTML elements. -->
+        <tr ng-repeat="student in exampleArray">
+            <td>{{student.name}}</td>
+            <td>{{student.grade}}</td>
+        </tr>
+    </table>
+
+    <!-- listed data -->
+    <hr />
+    <p>... or in an unordered list ...</p>
+    <ul>
+        <li ng-repeat="student in exampleArray">{{student.name}}: {{student.grade}}</li>
+    </ul>
+
+    <!-- data in a series of divs -->
+    <hr />
+    <p>... or in any other repeating HTML structure ...</p>
+    <div style="border: 1px solid black; padding: 5px;" ng-repeat="student in exampleArray">
+        <p>{{student.name}}</p>
+        <p><b>{{student.grade}}</b></p>
+    </div>
+
+    <!-- edit the data -->
+    <hr />
+    <p>We can even use Angular looping to edit the data with just a few lines of HTML.</p>
+    <p>(Change the information below, and watch it update all over the page.)</p>
+    <form>
+        <div ng-repeat="student in exampleArray">
+            <p>Name: <input type="text" ng-model="student.name"> Grade: <input type="text" ng-model="student.grade"></p>
+        </div>
+    </form>
+
+</div>

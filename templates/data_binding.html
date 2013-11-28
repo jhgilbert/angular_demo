@@ -1,0 +1,26 @@
+<div ng-controller="dataBindingCtrl">
+    <p>Two-way data binding allows a form to directly manipulate an object.</p>
+    <div>
+        <p>Let's say we got the object below from a GET call. Angular can use a form to manipulate the object,
+            which can then be posted back to the server without much effort.</p>
+        <!-- {{ }} allows interpolation of variables into HTML -->
+        <p><b>{{exampleObject}}</b></p>
+    </div>
+    <hr>
+    <div>
+        <p>Change the values in the form to see how this directly affects the object.</p>
+        <form>
+            <!-- ng-model binds a form element to a variable or object attribute -->
+            <p>
+                Name: <input type="text" ng-model="exampleObject.name">
+            </p>
+            <p>
+                Age: <input type="number" ng-model="exampleObject.age">
+            </p>
+            <p>
+                Favorite Color: <input type="text" ng-model="exampleObject.favoriteColor">
+            </p>
+        </form>
+    </div>
+</div>
+

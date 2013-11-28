@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="AngularDemo" ng-controller="mainCtrl">
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>
+    <script>
+        var angularDemo = angular.module('AngularDemo', []);
+
+        // Routing controls for deep linking
+        function mainRouteConfig($routeProvider) {
+            $routeProvider.
+                // for a finished Angular module
+                    when('/data_binding', {
+                        templateUrl: "/templates/data_binding.html"
+                    }).
+                    when('/looping', {
+                        templateUrl: "/templates/looping.html"
+                    }).
+                    when('/form_validation', {
+                        templateUrl: "/templates/form_validation.html"
+                    }).
+                    when('/deep_linking', {
+                        templateUrl: "/templates/deep_linking.html"
+                    }).
+                    when('/interaction', {
+                        templateUrl: "/templates/interaction.html"
+                    }).
+                    otherwise({
+                        templateUrl: "/templates/intro.html"
+                    });
+        }
+
+        angularDemo.config(mainRouteConfig);
+
+        // There's nothing special about Angular controllers -- they're just functions with
+        // dependency injection.
+
+        // Top-level controller
+        function mainCtrl($scope) {
+            // Anything to be shared by all the nested scopes could go here.
+        }
+
+        // Interaction
+        function interactionCtrl($scope) {
+            // $scope is just each controller's namespace.
+            // Variables are added to the namespace in the manner below.
+            $scope.showPinkSquare = true;
+            $scope.showGreenSquare = true;
+        }
+
+        // Controller for 'Data Binding'
+        function dataBindingCtrl($scope) {
+            $scope.exampleObject = {
+                favoriteColor: 'blue',
+                age: 21,
+                name: 'Steve'
+            };
+        }
+
+        // Controller for 'Looping'
+        function loopingCtrl($scope) {
+            $scope.exampleArray = [
+                {name: 'Jane', grade: 'C'},
+                {name: 'Pankaj', grade: 'B'},
+                {name: 'Maricela', grade: 'A'},
+                {name: 'John', grade: 'A'}
+            ];
+        }
+
+        // Controller for 'Form Validation'
+        function validationCtrl($scope) {
+            $scope.exampleNumber = 6;
+        }
+
+        // Custom Directive for 'Form Validation'
+        // Directives seem complex but are mostly boilerplate.
+        // The one below is for custom form validation, but directives can be used for anything.
+        // For instance, a "slide up/slide down" directive can evaluate whether a given expression is true or false,
+        // and collapse or expand a div accordingly.
+        // In HTML, you could then implement the directive with something like
+        // <div slide-directive="divIsVisible">Some text</div>
+        // In this case, the variable divIsVisible is true, the div will be expanded. Otherwise, it will not.
+        // This allows directives to be highly reusable, as they can be given different expressions to evaluate
+        // in different HTMl elements.
+        // Some directives come built in, like ng-show. You can see an example of ng-show on the Interaction page.
+        angularDemo.directive('rangeValidator', function () {
+            return {
+                require: 'ngModel',
+                link: function (scope, elm, attrs, ctrl) {
+                    var min = scope.$eval(attrs.minValue);
+                    var max = scope.$eval(attrs.maxValue);
+                    ctrl.$parsers.unshift(function (viewValue) {
+                        if (parseInt(viewValue) >= min && parseInt(viewValue) <= max) {
+                            // it is valid
+                            ctrl.$setValidity('rangeValidator', true);
+                            return viewValue;
+                        } else {
+                            // it is invalid, return undefined (no model update)
+                            ctrl.$setValidity('rangeValidator', false);
+                            return undefined;
+                        }
+                    });
+                }
+            };
+        });
+
+    </script>
+
+</head>
+<body>
+
+<!-- Basic nav -->
+<div style="display: inline-block; padding-right: 20px; vertical-align: top;">
+    <p><a href="/">Intro</a></p>
+    <p><a href="#/interaction">Interaction</a></p>
+    <p><a href="#/data_binding">Data Binding</a></p>
+    <p><a href="#/looping">Looping</a></p>
+    <p><a href="#/form_validation">Form Validation</a></p>
+    <p><a href="#/deep_linking">Deep Linking</a></p>
+</div>
+
+<!-- Content area -- ng-view is a special directive that says "Hey Angular, put the template associated
+with the route in the browser's address bar right here." Those template associations were established above,
+in the routing configuration. -->
+<div style="display: inline-block; vertical-align: top; max-width: 800px;" ng-view>
+
+</div>
+</body>
+</html>

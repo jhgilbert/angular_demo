@@ -1,0 +1,24 @@
+<div ng-controller="interactionCtrl">
+    <p>Unlike jQuery, Angular does not rely on the DOM structure or class/ID of the HTML element in setting up
+       event listeners, so the code is less brittle.</p>
+
+    <p>This page contains no IDs or classes, but complex interaction is not only possible, but simplified.
+       Event listeners are kept within their respective HTML elements, preventing
+       spaghetti code.</p>
+
+    <!-- square controls -->
+    <!-- ng-model binds the checkboxes to the variables showPinkSquare and showGreenSquare -->
+    <p><input type="checkbox" ng-model="showPinkSquare">Show pink square</p>
+    <p><input type="checkbox" ng-model="showGreenSquare">Show green square</p>
+
+    <!-- squares -->
+    <!-- if the expressions given to ng-show for each div evaluate to true, the div will display; otherwise it will be hidden. -->
+    <div ng-show="showPinkSquare" style="display: inline-block; width: 100px; height: 100px; background-color: green;"></div>
+    <div ng-show="showGreenSquare" style="display: inline-block; width: 100px; height: 100px; background-color: pink;"></div>
+
+    <!-- square display status text -->
+    <!-- if the expressions given to ng-show for each paragraph evaluate to true, the div will display; otherwise it will be hidden. -->
+    <p ng-show="showPinkSquare && showGreenSquare">Both squares are visible!</p>
+    <p ng-show="!showPinkSquare && !showGreenSquare">No squares are visible!</p>
+    <p ng-show="(showPinkSquare==false && showGreenSquare == true) || (showPinkSquare==true && showGreenSquare == false)">Only one square is visible!</p>
+</div>
